@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Request, Delete, Put, Body, Param } from '@nestjs/common';
+import { JwtAuthGuard } from './../auth/jwt-auth.guard';
+import { Controller, Get, Post, Request, Delete, Put, Body, Param, UseGuards } from '@nestjs/common';
 import { User } from './interfaces/user.interface';
 import { UsersService } from './users.service';
 
@@ -11,16 +12,19 @@ export class UsersController {
         return this.usersSevice.findAll();
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post('create')
     addTeam(@Body() user: User): Promise<User> {
         return this.usersSevice.addUser(user);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     deleteTeam(@Param('id') id): Promise<User> {
         return this.usersSevice.deleteUser(id);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put(':id')
     update(@Body() updateUser: User, @Param('id') id): Promise<User> {
         return this.usersSevice.update(id, updateUser);
