@@ -3,12 +3,14 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
+import { TeamsService } from './teams/teams.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UsersService
+    private readonly userService: UsersService,
+    // private readonly teamService: TeamsService
   ) {}
 
   @Get()
@@ -45,6 +47,11 @@ export class AppController {
   getAll(@Request() req): any {
     return this.userService.findAll()
   }
+
+  // @Get('teams')
+  // getAllTeams(@Request() req): any {
+  //   return this.teamService.findAll()
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Post('add')
