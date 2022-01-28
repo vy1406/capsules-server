@@ -6,12 +6,14 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TeamsModule } from './teams/teams.module';
+import { RoastersModule } from './roasters/roaster.module';
 
 @Module({
   imports: [
+    AuthModule,
     TeamsModule,
     UsersModule,
-    AuthModule,
+    RoastersModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO)
   ],

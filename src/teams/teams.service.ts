@@ -16,10 +16,11 @@ export class TeamsService {
     }
 
     async deleteTeam(id): Promise<any> {
-        return await this.teamModel.deleteOne(id)
+        return await this.teamModel.findByIdAndRemove(id)
     }
 
     async update(id: string, team: Team): Promise<Team> {
         return await this.teamModel.findByIdAndUpdate(id, team, { new: true });
     }
+    
 }

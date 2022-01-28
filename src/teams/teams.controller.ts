@@ -17,9 +17,8 @@ export class TeamsController {
     }
 
     @Delete(':id')
-    deleteTeam(@Request() req): Promise<Team> {
-        const team: Team = req.body;
-        return this.teamsService.deleteTeam(team);
+    deleteTeam(@Param('id') id): Promise<Team> {
+        return this.teamsService.deleteTeam(id);
     }
 
     @Put(':id')

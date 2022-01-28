@@ -1,10 +1,8 @@
 export interface User {
-    id: number;
+    id: string;
     username: string;
-    password: string;
-    
-    teamId: number,
+    password: string,
+    teamId: string,
     color: string,
     isTeamLeader: boolean,
-    teamName: string
 }

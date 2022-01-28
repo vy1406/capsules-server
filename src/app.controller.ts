@@ -4,13 +4,15 @@ import { AuthService } from './auth/auth.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
 import { TeamsService } from './teams/teams.service';
+import { RoasterService } from './roasters/roaster.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UsersService,
-    // private readonly teamService: TeamsService
+    private readonly teamService: TeamsService,
+    private readonly roasterService: RoasterService,
   ) {}
 
   @Get()
@@ -48,11 +50,6 @@ export class AppController {
     return this.userService.findAll()
   }
 
-  // @Get('teams')
-  // getAllTeams(@Request() req): any {
-  //   return this.teamService.findAll()
-  // }
-
   @UseGuards(JwtAuthGuard)
   @Post('add')
   addUser(@Request() req): any {
@@ -61,4 +58,14 @@ export class AppController {
       msg: "add user..."
     };
   }
+
+  // @Get('populate_users')
+  // popuplate(@Request() req): any {
+  //   return this.userService.populateMock()
+  // }
+
+  // @Get('populate_roaster')
+  // popuplateRoaster(@Request() req): any {
+  //   return this.roasterService.populateMock()
+  // }
 }

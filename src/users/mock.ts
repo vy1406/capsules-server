@@ -2,53 +2,48 @@ import { User } from "./interfaces/user.interface";
 
 export const DUMMY_USERS: User[] = [
     {
-        id: 11,
+        id: "61f465092ae41713e918c898",
         username: 'vova',
         password: "123",
-        teamId: 1,
+        teamId: '61eabbf8332da470b4619ae5',
         color: "fff",
         isTeamLeader: false,
-        teamName: 'Dairy Stars'
     },
-    {   id: 22,
+    {   id: "61f465092ae41713e918c899",
         username: 'udi',
         password: "123",
-        teamId: 1,
+        teamId: '61eabbf8332da470b4619ae5',
         color: "fff",
         isTeamLeader: false,
-        teamName: 'Dairy Stars'
     },
-    {   id: 33,
+    {   id: "61f465092ae41713e918c89a",
         username: 'saar',
         password: "123",
-        teamId: 1,
+        teamId: '61eabbf8332da470b4619ae5',
         color: "fff",
         isTeamLeader: false,
-        teamName: 'Dairy Stars'
     },
-    {   id: 44,
+    {   id: "61f465092ae41713e918c89b",
         username: 'stav',
         password: "123",
-        teamId: 1,
+        teamId: '61eabbf8332da470b4619ae5',
         color: "fff",
         isTeamLeader: false,
-        teamName: 'Dairy Stars'
     },
-    {   id: 55,
+    {   id: "61f465092ae41713e918c89c",
         username: 'noa',
         password: "123",
-        teamId: 1,
+        teamId: '61eabbf8332da470b4619ae5',
         color: "fff",
         isTeamLeader: false,
-        teamName: 'Dairy Stars'
     },
-    {   id: 66,
+    {   
+        id: "61f465092ae41713e918c89d",
         username: 'moshe',
         password: "123",
-        teamId: 1,
+        teamId: '61eabbf8332da470b4619ae5',
         color: "fff",
         isTeamLeader: false,
-        teamName: 'Dairy Stars'
     }
 ]
 
@@ -76,6 +71,20 @@ export const ROASTERS = [
     {date: addDaysToDate(now, 9), users: [DUMMY_USERS[0], DUMMY_USERS[1], DUMMY_USERS[2], DUMMY_USERS[3], DUMMY_USERS[4], DUMMY_USERS[5]]},
     {date: addDaysToDate(now, 10), users: [DUMMY_USERS[1], DUMMY_USERS[2]]}
 ]
+
+export const USER_IDS_ROASTERS = [
+    { date: "01-16-2022", users: [DUMMY_USERS[0].id]},
+    { date: "01-17-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "01-18-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "01-19-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "01-20-2022", users: [DUMMY_USERS[0].id]},
+    { date: "01-21-2022", users: [DUMMY_USERS[0].id]},
+    { date: "01-22-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "01-23-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "01-24-2022", users: [DUMMY_USERS[0].id, DUMMY_USERS[1].id, DUMMY_USERS[2].id, DUMMY_USERS[3].id, DUMMY_USERS[4].id, DUMMY_USERS[5].id]},
+    { date: "01-25-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]}
+]
+
 
 export const TEAM_USERS = DUMMY_USERS
 
