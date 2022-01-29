@@ -7,21 +7,36 @@ import { RoasterService } from './roaster.service';
 export class RoastersController {
     constructor(private readonly roasterService: RoasterService) {}
 
-    @Get('read')
+    
+    
+    @Get('all')
     findAll(): Promise<Roaster[]> {
         return this.roasterService.findAll();
+    }
+    
+    @UseGuards(JwtAuthGuard)
+    @Get('read')
+    getUserRoaster(@Request() req): Promise<Roaster[]> {
+        console.log(req.user)
+        return this.roasterService.findByUser(req.user.id);
     }
 
     @UseGuards(JwtAuthGuard)
     @Post('create')
-    addTeam(@Body() team: Roaster): Promise<Roaster> {
-        return this.roasterService.addTeam(team);
+    addRoaster(@Body() body: any, @Request() req): Promise<Roaster> {
+        return this.roasterService.addRoaster(body, req.user);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('updateOrRemove')
+    updateOrRemove(@Body() body: any, @Request() req): Promise<Roaster> {
+        return this.roasterService.updateOrRemove(body, req.user);
     }
 
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     deleteTeam(@Param('id') id): Promise<Roaster> {
-        return this.roasterService.deleteTeam(id);
+        return this.roasterService.deleteRoaster(id);
     }
 
     @UseGuards(JwtAuthGuard)

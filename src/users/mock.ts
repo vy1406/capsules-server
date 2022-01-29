@@ -57,7 +57,7 @@ export const addDaysToDate = (date, days = 7) => {
   datePlusWeek.setDate(datePlusWeek.getDate() + days);
   return datePlusWeek
 }
-const now = new Date("01-15-2022")
+const now = new Date("15-01-2022")
 
 export const ROASTERS = [
     {date: addDaysToDate(now, 1), users: [DUMMY_USERS[0]]},
@@ -73,16 +73,16 @@ export const ROASTERS = [
 ]
 
 export const USER_IDS_ROASTERS = [
-    { date: "01-16-2022", users: [DUMMY_USERS[0].id]},
-    { date: "01-17-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
-    { date: "01-18-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
-    { date: "01-19-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
-    { date: "01-20-2022", users: [DUMMY_USERS[0].id]},
-    { date: "01-21-2022", users: [DUMMY_USERS[0].id]},
-    { date: "01-22-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
-    { date: "01-23-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
-    { date: "01-24-2022", users: [DUMMY_USERS[0].id, DUMMY_USERS[1].id, DUMMY_USERS[2].id, DUMMY_USERS[3].id, DUMMY_USERS[4].id, DUMMY_USERS[5].id]},
-    { date: "01-25-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]}
+    { date: "16-01-2022", users: [DUMMY_USERS[0].id]},
+    { date: "17-01-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "18-01-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "19-01-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "20-01-2022", users: [DUMMY_USERS[0].id]},
+    { date: "21-01-2022", users: [DUMMY_USERS[0].id]},
+    { date: "22-01-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "23-01-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]},
+    { date: "24-01-2022", users: [DUMMY_USERS[0].id, DUMMY_USERS[1].id, DUMMY_USERS[2].id, DUMMY_USERS[3].id, DUMMY_USERS[4].id, DUMMY_USERS[5].id]},
+    { date: "25-01-2022", users: [DUMMY_USERS[1].id, DUMMY_USERS[2].id]}
 ]
 
 
