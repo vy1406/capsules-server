@@ -4,12 +4,14 @@ import { Injectable } from '@nestjs/common';
 import { Roaster } from './interfaces/roaster.interface';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class RoasterService {
-    constructor(@InjectModel('Roaster') private readonly roasterModel: Model<Roaster>) { }
-
-
+    constructor(
+        @InjectModel('Roaster') private readonly roasterModel: Model<Roaster>,
+        private readonly usersService: UsersService
+        ) { }
 
     async findAll(): Promise<any[]> {
         return await this.roasterModel.find().populate({
@@ -18,8 +20,19 @@ export class RoasterService {
        });
     }
 
+    async findTeamRoasters(user: User): Promise<Roaster[]> {
+        const dbUser = await this.usersService.findById(user.id);
+        const teamMembers = await this.usersService.findTeamMembers(dbUser.teamId);
+        const teamIds = teamMembers.map(member => member.id)
+        const teamRoasters = await this.roasterModel.find({ 'users': {"$in" : teamIds}}).populate({
+            path:'users',
+            select:'id username color isTeamLeader teamId'
+        })
+        return teamRoasters;
+    }
+
     async findByUser(id: string): Promise<Roaster[]> {
-        return this.roasterModel.find({ "$in" : [id]}).populate({
+        return this.roasterModel.find({ 'users': {"$in" : [id]}}).populate({
             path:'users',
             select:'id username color isTeamLeader teamId'
        })

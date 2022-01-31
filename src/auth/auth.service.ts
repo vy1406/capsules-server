@@ -22,13 +22,11 @@ export class AuthService {
     }
 
     async login(user: User) {
-        console.log('inside LOGIN', user)
+
         const payload = { username: user.username, sub: user.id };
-        console.log(payload)
         const token = await this.jwtService.sign(payload)
         const logged_user = await this.usersService.findById(user.id);
-        console.log(token)
-        console.log(logged_user)
+
         return {
             token,
             logged_user

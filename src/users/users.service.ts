@@ -17,6 +17,10 @@ export class UsersService {
         return mockUsers.find(user => user.username === username);
     }
 
+    async findTeamMembers(teamId: string): Promise<User[] | undefined> {
+        return this.userModel.find({ teamId });
+    }
+
     async findById(id: string): Promise<User | undefined> {
         return mockUsers.find(user => user.id === id);
     }

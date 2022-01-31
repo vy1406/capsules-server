@@ -1,3 +1,4 @@
+import { UsersService } from 'src/users/users.service';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { Controller, Get, Post, Request, Delete, Put, Body, Param, UseGuards } from '@nestjs/common';
 import { Roaster } from './interfaces/roaster.interface';
@@ -5,7 +6,10 @@ import { RoasterService } from './roaster.service';
 
 @Controller('roaster')
 export class RoastersController {
-    constructor(private readonly roasterService: RoasterService) {}
+    constructor(
+        private readonly roasterService: RoasterService,
+        private readonly usersService: UsersService
+        ) {}
 
     
     
@@ -14,10 +18,11 @@ export class RoastersController {
         return this.roasterService.findAll();
     }
     
+
+    
     @UseGuards(JwtAuthGuard)
     @Get('read')
     getUserRoaster(@Request() req): Promise<Roaster[]> {
-        console.log(req.user)
         return this.roasterService.findByUser(req.user.id);
     }
 
@@ -44,4 +49,12 @@ export class RoastersController {
     update(@Body() updateTeam: Roaster, @Param('id') id): Promise<Roaster> {
         return this.roasterService.update(id, updateTeam);
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('team')
+    getTeamRoaster(@Request() req): Promise<Roaster[]> {
+        console.log("????")
+        return this.roasterService.findTeamRoasters(req.user);
+    }
+
 }
