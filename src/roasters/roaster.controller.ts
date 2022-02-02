@@ -53,7 +53,6 @@ export class RoastersController {
     @UseGuards(JwtAuthGuard)
     @Get('team')
     getTeamRoaster(@Request() req): Promise<Roaster[]> {
-        console.log("????")
         return this.roasterService.findTeamRoasters(req.user);
     }
 

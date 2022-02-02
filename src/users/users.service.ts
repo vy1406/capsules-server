@@ -4,6 +4,7 @@ import { User } from './interfaces/user.interface';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { DUMMY_USERS as mockUsers, DUMMY_USER_DATA as userData } from '../users/mock';
+import { selectWithoutPassword } from 'src/utils/utils';
 
 @Injectable()
 export class UsersService {
@@ -17,8 +18,14 @@ export class UsersService {
         return mockUsers.find(user => user.username === username);
     }
 
+    
+    async findTeammates(id: string): Promise<User[] | undefined> {
+        const foundUser = await this.userModel.findById(id)
+        return this.findTeamMembers(foundUser.teamId);
+    }
+
     async findTeamMembers(teamId: string): Promise<User[] | undefined> {
-        return this.userModel.find({ teamId });
+        return this.userModel.find({ teamId}).select(selectWithoutPassword);
     }
 
     async findById(id: string): Promise<User | undefined> {
@@ -37,8 +44,8 @@ export class UsersService {
         return await this.userModel.findByIdAndRemove(id)
     }
 
-    async update(id: string, team: User): Promise<User> {
-        return await this.userModel.findByIdAndUpdate(id, team, { new: true });
+    async update(updatedUser: User): Promise<User> {
+        return await this.userModel.findByIdAndUpdate({ _id: updatedUser.id} , updatedUser, { new: true });
     }
 
     async populateMock(): Promise<User[]> {

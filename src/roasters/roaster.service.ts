@@ -5,6 +5,7 @@ import { Roaster } from './interfaces/roaster.interface';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UsersService } from 'src/users/users.service';
+import { selectWithoutPassword } from 'src/utils/utils';
 
 @Injectable()
 export class RoasterService {
@@ -16,7 +17,7 @@ export class RoasterService {
     async findAll(): Promise<any[]> {
         return await this.roasterModel.find().populate({
             path:'users',
-            select:'id username color isTeamLeader teamId'
+            select: selectWithoutPassword
        });
     }
 
@@ -26,7 +27,7 @@ export class RoasterService {
         const teamIds = teamMembers.map(member => member.id)
         const teamRoasters = await this.roasterModel.find({ 'users': {"$in" : teamIds}}).populate({
             path:'users',
-            select:'id username color isTeamLeader teamId'
+            select: selectWithoutPassword
         })
         return teamRoasters;
     }
@@ -34,27 +35,28 @@ export class RoasterService {
     async findByUser(id: string): Promise<Roaster[]> {
         return this.roasterModel.find({ 'users': {"$in" : [id]}}).populate({
             path:'users',
-            select:'id username color isTeamLeader teamId'
+            select: selectWithoutPassword
        })
     }
 
     async updateOrRemove(dates: any, user: User):  Promise<any> {
-        const conditionsToAdd = {
-            'users': { $ne: user.id }
-        }
-        const conditionsToRemove = {
-            'users': { $in: user.id }
-        }
         try { 
             dates.datesToAdd.map(async (date) => {
-                await this.roasterModel.findOneAndUpdate(conditionsToAdd, { date, $addToSet: { users: user.id } }, { upsert: true })
+                await this.roasterModel.updateOne(
+                    { "date": date },
+                    { $addToSet: { "users": user.id }},
+                    { upsert: true, new: true }
+                )
             })
             dates.datesToRemove.map(async (date) => {
-                await this.roasterModel.findOneAndUpdate(conditionsToRemove, { date, $pull: { users: user.id }}, { safe: true, multi:true })
+                await this.roasterModel.updateOne(
+                    { "date": date },
+                    { "$pull": { "users": user.id }},
+                    { upsert: false, multi: true },
+                )
             })  
         } 
         catch (e) {
-            console.log(e)
             return false
         }
         finally {

@@ -19,14 +19,21 @@ export class UsersController {
     }
 
     @UseGuards(JwtAuthGuard)
+    @Post('TEAMMATES')
+    findTeammembers(@Request() req): Promise<User[]> {
+        return this.usersSevice.findTeammates(req.user.id);
+    }
+
+
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     deleteTeam(@Param('id') id): Promise<User> {
         return this.usersSevice.deleteUser(id);
     }
 
     @UseGuards(JwtAuthGuard)
-    @Put(':id')
-    update(@Body() updateUser: User, @Param('id') id): Promise<User> {
-        return this.usersSevice.update(id, updateUser);
+    @Post('update')
+    update(@Body() updatedUser: User): Promise<User> {
+        return this.usersSevice.update(updatedUser);
     }
 }
